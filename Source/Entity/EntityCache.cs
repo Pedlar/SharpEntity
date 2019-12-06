@@ -16,7 +16,6 @@ namespace SharpEngine
             awaitingActivation = new List<IEntity>();
             awaitingDeactivation = new List<IEntity>();
             zombie = new List<IEntity>();
-
         }
 
         public void Add(CacheDesignation cacheDesignation, IEntity entity)

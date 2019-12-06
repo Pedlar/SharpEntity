@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace SharpEngine
 {
     public class Entity : IEntity
@@ -45,6 +47,35 @@ namespace SharpEngine
 
         public bool IsValid() => Manager.IsValid(this);
         public void Destroy() => Manager.Desotry(this);
+
+        public void AddComponent<T>(params dynamic[] args)
+        {
+            Type componentType = typeof(T);
+            IComponent componenet = constructComponent(componentType, args);
+
+            Manager.AddComponent(this, componenet, componentType);
+        }
+
+        public void RemoveComponent<T>()
+        {
+            Manager.RemoveComponent(this, typeof(T));
+        }
+
+        public bool HasComponent<T>()
+        {
+            return Manager.HasComponent(this, typeof(T));
+        }
+
+        private IComponent constructComponent(Type componentType, dynamic[] args)
+        {
+            Type[] argTypes = new Type[args.Length];
+            for(int argIndex = 0; argIndex < args.Length; argIndex++)
+            {
+                argTypes[argIndex] = args[argIndex].GetType();
+            }
+
+            return (IComponent)componentType.GetConstructor(argTypes).Invoke(args);
+        }
 
         public override bool Equals(object obj)
         {

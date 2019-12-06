@@ -8,5 +8,9 @@
         bool IsActive { get; set; }
         bool IsValid();
         void Destroy();
+
+        void AddComponent<T>(params dynamic[] args);
+        void RemoveComponent<T>();
+        bool HasComponent<T>();
     }
 }

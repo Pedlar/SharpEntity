@@ -7,8 +7,8 @@ namespace SharpEngine
     public static class CacheHelperExtensions
     {
         public static void AddAlive(this ICache<IEntity> cache, IEntity entity) => cache.Add(CacheDesignation.ALIVE, entity);
-        public static void AddAwaitingActivation(this ICache<IEntity> cache, IEntity entity) => cache.Add(CacheDesignation.ALIVE, entity);
-        public static void AddAwaitingDeactivation(this ICache<IEntity> cache, IEntity entity) => cache.Add(CacheDesignation.ALIVE, entity);
+        public static void AddAwaitingActivation(this ICache<IEntity> cache, IEntity entity) => cache.Add(CacheDesignation.ACTIVACTION, entity);
+        public static void AddAwaitingDeactivation(this ICache<IEntity> cache, IEntity entity) => cache.Add(CacheDesignation.DEACTIVATION, entity);
         public static void AddZombie(this ICache<IEntity> cache, IEntity entity) => cache.Add(CacheDesignation.ZOMBIE, entity);
 
         public static void RemoveAlive(this ICache<IEntity> cache, IEntity entity) => cache.List(CacheDesignation.ALIVE).Remove(entity);
@@ -178,14 +178,14 @@ namespace SharpEngine
         {
             entityCache.GetAwaitingActivation().ForEach(entity =>
             {
-                var attr = entityAttributes[entity.Id.Index];
-                attr.Activated = true;
+                var attrs = entityAttributes[entity.Id.Index];
+                attrs.Activated = true;
             });
 
             entityCache.GetAwaitingDeactivation().ForEach(entity =>
             {
-                var attr = entityAttributes[entity.Id.Index];
-                attr.Activated = false;
+                var attrs = entityAttributes[entity.Id.Index];
+                attrs.Activated = false;
             });
 
             entityCache.GetZombies().ForEach(entity =>
@@ -228,7 +228,7 @@ namespace SharpEngine
         internal void RemoveComponent(IEntity entity, Type componentType) 
             => entityComponents[entity.Id.Index].Components.Remove(componentType);
 
-        internal void HasComponent(IEntity entity, Type componentType) 
+        internal bool HasComponent(IEntity entity, Type componentType) 
             => entityComponents[entity.Id.Index].Components.ContainsKey(componentType);
 
         #endregion components
