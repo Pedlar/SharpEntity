@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace SharpEngine
 {
@@ -15,6 +11,6 @@ namespace SharpEngine
         T Last(CacheDesignation cacheDesignation);
         void ClearTemp();
         void Clear();
-        List<Entity> List(CacheDesignation cacheDesignation);
+        List<IEntity> List(CacheDesignation cacheDesignation);
     }
 }

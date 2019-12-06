@@ -42,17 +42,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Source\Entity.cs" />
-    <Compile Include="Source\EntityCache.cs" />
-    <Compile Include="Source\EntityFactory.cs" />
-    <Compile Include="Source\EntityIdPool.cs" />
+    <Compile Include="Source\Entity\Entity.cs" />
+    <Compile Include="Source\Entity\EntityCache.cs" />
+    <Compile Include="Source\Entity\EntityFactory.cs" />
+    <Compile Include="Source\Entity\EntityId.cs" />
+    <Compile Include="Source\Entity\EntityIdPool.cs" />
     <Compile Include="Source\EntityManager.cs" />
+    <Compile Include="Source\Exception\InvalidArgumentException.cs" />
     <Compile Include="Source\ICache.cs" />
-    <Compile Include="Source\InvalidIndexIdException.cs" />
+    <Compile Include="Source\IComponent.cs" />
+    <Compile Include="Source\IEntity.cs" />
+    <Compile Include="Source\Exception\InvalidIndexIdException.cs" />
+    <Compile Include="Source\IEntityId.cs" />
     <Compile Include="Source\IPool.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Source\Component\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="README.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

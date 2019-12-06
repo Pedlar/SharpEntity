@@ -3,24 +3,23 @@ using System.Linq;
 
 namespace SharpEngine
 {
-    class EntityCache : ICache<Entity>
+    class EntityCache : ICache<IEntity>
     {
-        List<Entity> alive;  // List of Entities
-        List<Entity> awaitingActivation; // List of Entities Awaiting Activation
-        List<Entity> awaitingDeactivation; // List of Entities Awaiting to be Deactivated
-        List<Entity> zombie; // Cleared on Refresh
+        List<IEntity> alive;  // List of Entities
+        List<IEntity> awaitingActivation; // List of Entities Awaiting Activation
+        List<IEntity> awaitingDeactivation; // List of Entities Awaiting to be Deactivated
+        List<IEntity> zombie; // Cleared on Refresh
 
         public EntityCache()
         {
-            alive = new List<Entity>();
-            awaitingActivation = new List<Entity>();
-            awaitingDeactivation = new List<Entity>();
-            zombie = new List<Entity>();
+            alive = new List<IEntity>();
+            awaitingActivation = new List<IEntity>();
+            awaitingDeactivation = new List<IEntity>();
+            zombie = new List<IEntity>();
 
         }
 
-
-        public void Add(CacheDesignation cacheDesignation, Entity entity)
+        public void Add(CacheDesignation cacheDesignation, IEntity entity)
         {
             switch(cacheDesignation)
             {
@@ -39,7 +38,7 @@ namespace SharpEngine
             }
         }
 
-        public Entity Last(CacheDesignation cacheDesignation)
+        public IEntity Last(CacheDesignation cacheDesignation)
         {
             switch(cacheDesignation)
             {
@@ -56,7 +55,7 @@ namespace SharpEngine
             return null;
         }
 
-        public List<Entity> List(CacheDesignation cacheDesignation)
+        public List<IEntity> List(CacheDesignation cacheDesignation)
         {
             switch (cacheDesignation)
             {
@@ -72,7 +71,7 @@ namespace SharpEngine
                     break;
             }
 
-            return new List<Entity>();
+            return new List<IEntity>();
         }
 
         public void ClearTemp()
