@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Collections.Generic;
 
 namespace SharpEngine
 {
@@ -48,6 +49,16 @@ namespace SharpEngine
         public bool IsValid() => Manager.IsValid(this);
         public void Destroy() => Manager.Desotry(this);
 
+        public T GetComponent<T>()
+        {
+            return Manager.GetComponent<T>(this, typeof(T));
+        }
+
+        public List<IComponent> GetComponents()
+        {
+            return Manager.GetComponents(this);
+        }
+
         public void AddComponent<T>(params dynamic[] args)
         {
             Type componentType = typeof(T);
@@ -64,6 +75,11 @@ namespace SharpEngine
         public bool HasComponent<T>()
         {
             return Manager.HasComponent(this, typeof(T));
+        }
+
+        public void ForEachComponent(Action<IComponent> action)
+        {
+            Manager.GetComponents(this).ForEach(action);
         }
 
         private IComponent constructComponent(Type componentType, dynamic[] args)

@@ -30,7 +30,7 @@ namespace SharpEngine
         public IDictionary<Type, IComponent> Components;
     }
 
-    public class EntityManager
+    public class EntityManager : IDisposable
     {
         private readonly EntityFactory entityFactory;
         private readonly ICache<IEntity> entityCache;
@@ -222,6 +222,12 @@ namespace SharpEngine
         #endregion entity
         #region components
 
+        internal T GetComponent<T>(IEntity entity, Type componentType)
+            => (T)entityComponents[entity.Id.Index].Components[componentType];
+
+        internal List<IComponent> GetComponents(IEntity entity)
+            => entityComponents[entity.Id.Index].Components.Values.ToList();
+
         internal void AddComponent(IEntity entity, IComponent componenet, Type componentType) 
             => entityComponents[entity.Id.Index].Components[componentType] = componenet;
 
@@ -230,6 +236,28 @@ namespace SharpEngine
 
         internal bool HasComponent(IEntity entity, Type componentType) 
             => entityComponents[entity.Id.Index].Components.ContainsKey(componentType);
+
+        #region IDisposable Support
+        private bool disposedValue = false; // To detect redundant calls
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    Clear();
+                }
+
+                disposedValue = true;
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+        }
+        #endregion
 
         #endregion components
         #endregion delegationmethods

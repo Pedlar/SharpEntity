@@ -8,6 +8,6 @@ namespace SharpEngine
 {
     public interface IComponent
     {
-
+        void OnEntityCreated();
     }
 }
