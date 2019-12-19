@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SharpEngine.Component;
+using System;
 using System.Collections.Generic;
 
 namespace SharpEngine
@@ -12,9 +13,18 @@ namespace SharpEngine
         bool IsValid();
         void Destroy();
 
+        void AddActivationListener(EventHandler<EntityEventArgs> onActivated);
+        void AddDeactivationListener(EventHandler<EntityEventArgs> onDeactivated);
+        void AddDestroyListener(EventHandler<EntityEventArgs> onDestroy);
+
+        void RemoveActivationListener(EventHandler<EntityEventArgs> onActivated);
+        void RemoveDeactivationListener(EventHandler<EntityEventArgs> onDeactivated);
+        void RemoveDestroyListener(EventHandler<EntityEventArgs> onDestroy);
+
         T GetComponent<T>();
         List<IComponent> GetComponents();
-        void AddComponent<T>(params dynamic[] args);
+        void AddComponent<T>(params dynamic[] constructorArgs);
+        void AddComponent<T>(ComponentProperties properties, params dynamic[] constructorArgs);
         void RemoveComponent<T>();
         bool HasComponent<T>();
         void ForEachComponent(Action<IComponent> action);

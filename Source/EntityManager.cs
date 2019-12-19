@@ -28,10 +28,24 @@ namespace SharpEngine
     public class EntityComponents
     {
         public IDictionary<Type, IComponent> Components;
+
+        public EntityComponents()
+        {
+            Components = new Dictionary<Type, IComponent>();
+        }
+    }
+
+    public class EntityEventArgs : EventArgs
+    {
+        public IEntity Entity { get; set; }
     }
 
     public class EntityManager : IDisposable
     {
+        public event EventHandler<EntityEventArgs> OnActivated;
+        public event EventHandler<EntityEventArgs> OnDeactivated;
+        public event EventHandler<EntityEventArgs> OnDestroy;
+
         private readonly EntityFactory entityFactory;
         private readonly ICache<IEntity> entityCache;
         private readonly IPool<IEntityId> entityIdPool;
@@ -54,13 +68,21 @@ namespace SharpEngine
             }
         }
 
-        public IEntity CreateEntity()
+        public IEntity CreateEntity(Action<IEntity> configure = null)
         {
             var entity = entityFactory.Create();
             entityCache.AddAlive(entity);
             entityAttributes[entity.Id.Index] = new EntityAttributes();
             entityComponents[entity.Id.Index] = new EntityComponents();
-            return entityCache.GetLastAlive();
+
+            configure?.Invoke(entity);
+
+            foreach(IComponent component in entityComponents[entity.Id.Index].Components.Values)
+            {
+                component.Setup();
+            }
+
+            return entity;
         }
 
         // Create an Entity and Run templateFunc(Entity entity) and return the modified entity
@@ -180,16 +202,20 @@ namespace SharpEngine
             {
                 var attrs = entityAttributes[entity.Id.Index];
                 attrs.Activated = true;
+                OnActivated?.Invoke(this, new EntityEventArgs() { Entity = entity });
             });
 
             entityCache.GetAwaitingDeactivation().ForEach(entity =>
             {
                 var attrs = entityAttributes[entity.Id.Index];
                 attrs.Activated = false;
+                OnDeactivated?.Invoke(this, new EntityEventArgs() { Entity = entity });
             });
 
             entityCache.GetZombies().ForEach(entity =>
             {
+                OnDestroy?.Invoke(this, new EntityEventArgs() { Entity = entity });
+                entity.Destroy();
                 entityCache.RemoveAlive(entity);
                 entityAttributes.Remove(entity.Id.Index);
                 entityComponents.Remove(entity.Id.Index);
@@ -201,6 +227,15 @@ namespace SharpEngine
 
         public void Clear()
         {
+            foreach (var entity in entityCache.GetAlive()
+                .Concat(entityCache.GetAwaitingActivation())
+                .Concat(entityCache.GetAwaitingDeactivation())
+                .Concat(entityCache.GetZombies()))
+            {
+                OnDestroy?.Invoke(this, new EntityEventArgs() { Entity = entity });
+                entity.Destroy();
+            }
+
             entityCache.Clear();
             entityAttributes.Clear();
             entityComponents.Clear();

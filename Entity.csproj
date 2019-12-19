@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Source\Component\ComponentProperties.cs" />
     <Compile Include="Source\Entity\Entity.cs" />
     <Compile Include="Source\Entity\EntityCache.cs" />
     <Compile Include="Source\Entity\EntityFactory.cs" />
@@ -55,10 +56,11 @@
     <Compile Include="Source\Exception\InvalidIndexIdException.cs" />
     <Compile Include="Source\IEntityId.cs" />
     <Compile Include="Source\IPool.cs" />
+    <Compile Include="Source\Utilities\DictionaryExtensions.cs" />
+    <Compile Include="Source\Utilities\EnumerableExtensions.cs" />
+    <Compile Include="Source\Utilities\StandardExtensions.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Source\Component\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="README.txt" />
   </ItemGroup>
