@@ -66,7 +66,12 @@ namespace SharpEngine
 
         public T GetComponent<T>()
         {
-            return Manager.GetComponent<T>(this, typeof(T));
+            return GetComponent<T>(typeof(T));
+        }
+
+        public T GetComponent<T>(Type componentType)
+        {
+            return Manager.GetComponent<T>(this, componentType);
         }
 
         public List<IComponent> GetComponents()
@@ -76,7 +81,11 @@ namespace SharpEngine
 
         public void AddComponent<T>(params dynamic[] args)
         {
-            Type componentType = typeof(T);
+            AddComponent(typeof(T), args);
+        }
+
+        public void AddComponent(Type componentType, params dynamic[] args)
+        {
             IComponent componenet = constructComponent(componentType, args, null);
 
             Manager.AddComponent(this, componenet, componentType);
@@ -84,7 +93,11 @@ namespace SharpEngine
 
         public void AddComponent<T>(ComponentProperties properties, params dynamic[] args)
         {
-            Type componentType = typeof(T);
+            AddComponent(typeof(T), properties, args);
+        }
+
+        public void AddComponent(Type componentType, ComponentProperties properties, params dynamic[] args)
+        {
             IComponent componenet = constructComponent(componentType, args, properties);
 
             Manager.AddComponent(this, componenet, componentType);
@@ -92,12 +105,22 @@ namespace SharpEngine
 
         public void RemoveComponent<T>()
         {
-            Manager.RemoveComponent(this, typeof(T));
+            RemoveComponent(typeof(T));
+        }
+
+        public void RemoveComponent(Type componentType)
+        {
+            Manager.RemoveComponent(this, componentType);
         }
 
         public bool HasComponent<T>()
         {
-            return Manager.HasComponent(this, typeof(T));
+            return HasComponent(typeof(T));
+        }
+
+        public bool HasComponent(Type componentType)
+        {
+            return Manager.HasComponent(this, componentType);
         }
 
         public void ForEachComponent(Action<IComponent> action)

@@ -27,6 +27,13 @@ namespace SharpEngine
         void AddComponent<T>(ComponentProperties properties, params dynamic[] constructorArgs);
         void RemoveComponent<T>();
         bool HasComponent<T>();
+
+        T GetComponent<T>(Type componentType);
+        void AddComponent(Type componentType, params dynamic[] constructorArgs);
+        void AddComponent(Type componentType, ComponentProperties properties, params dynamic[] constructorArgs);
+        void RemoveComponent(Type componentType);
+        bool HasComponent(Type componentType);
+
         void ForEachComponent(Action<IComponent> action);
     }
 }

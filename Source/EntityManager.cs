@@ -107,94 +107,66 @@ namespace SharpEngine
             return entityCache.GetAlive();
         }
 
-        public List<IEntity> GetEntitiesWithComponents<T>()
-        {
-            var query = from entity in entityCache.GetAlive()
-                        where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T))
-                        select entity;
+        public IEnumerable<IEntity> GetEntitiesWithComponents<T>()
+            =>  from entity in entityCache.GetAlive()
+                where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T))
+                select entity;
 
-            return query.ToList();
-        }
+        public IEnumerable<IEntity> GetEntitiesWithComponents<T1, T2>()
+            =>  from entity in entityCache.GetAlive()
+                where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T1))
+                where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T2))
+                select entity; 
 
-        public List<IEntity> GetEntitiesWithComponents<T1, T2>()
-        {
-            var query = from entity in entityCache.GetAlive()
-                        where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T1))
-                        where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T2))
-                        select entity; 
+        public IEnumerable<IEntity> GetEntitiesWithComponents<T1, T2, T3, T4>()
+            => from entity in entityCache.GetAlive()
+                where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T1))
+                where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T2))
+                where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T3))
+                where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T4))
+                select entity;
 
-            return query.ToList();
-        }
+        public IEnumerable<IEntity> GetEntitiesWithComponents<T1, T2, T3, T4, T5>()
+            => from entity in entityCache.GetAlive()
+                where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T1))
+                where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T2))
+                where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T3))
+                where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T4))
+                where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T5))
+                select entity;
 
-        public List<IEntity> GetEntitiesWithComponents<T1, T2, T3, T4>()
-        {
-            var query = from entity in entityCache.GetAlive()
-                        where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T1))
-                        where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T2))
-                        where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T3))
-                        where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T4))
-                        select entity;
+        public IEnumerable<IEntity> GetEntitiesWithComponents<T1, T2, T3, T4, T5, T6>()
+            => from entity in entityCache.GetAlive()
+                where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T1))
+                where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T2))
+                where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T3))
+                where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T4))
+                where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T5))
+                where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T6))
+                select entity;
 
-            return query.ToList();
-        }
+        public IEnumerable<IEntity> GetEntitiesWithComponents<T1, T2, T3, T4, T5, T6, T7>()
+            => from entity in entityCache.GetAlive()
+                where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T1))
+                where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T2))
+                where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T3))
+                where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T4))
+                where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T5))
+                where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T6))
+                where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T7))
+                select entity;
 
-        public List<IEntity> GetEntitiesWithComponents<T1, T2, T3, T4, T5>()
-        {
-            var query = from entity in entityCache.GetAlive()
-                        where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T1))
-                        where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T2))
-                        where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T3))
-                        where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T4))
-                        where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T5))
-                        select entity;
-
-            return query.ToList();
-        }
-
-        public List<IEntity> GetEntitiesWithComponents<T1, T2, T3, T4, T5, T6>()
-        {
-            var query = from entity in entityCache.GetAlive()
-                        where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T1))
-                        where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T2))
-                        where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T3))
-                        where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T4))
-                        where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T5))
-                        where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T6))
-                        select entity;
-
-            return query.ToList();
-        }
-
-        public List<IEntity> GetEntitiesWithComponents<T1, T2, T3, T4, T5, T6, T7>()
-        {
-            var query = from entity in entityCache.GetAlive()
-                        where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T1))
-                        where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T2))
-                        where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T3))
-                        where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T4))
-                        where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T5))
-                        where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T6))
-                        where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T7))
-                        select entity;
-
-            return query.ToList();
-        }
-
-        public List<IEntity> GetEntitiesWithComponents<T1, T2, T3, T4, T5, T6, T7, T8>()
-        {
-            var query = from entity in entityCache.GetAlive()
-                        where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T1))
-                        where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T2))
-                        where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T3))
-                        where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T4))
-                        where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T5))
-                        where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T6))
-                        where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T7))
-                        where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T8))
-                        select entity;
-
-            return query.ToList();
-        }
+        public IEnumerable<IEntity> GetEntitiesWithComponents<T1, T2, T3, T4, T5, T6, T7, T8>()
+            => from entity in entityCache.GetAlive()
+                where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T1))
+                where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T2))
+                where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T3))
+                where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T4))
+                where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T5))
+                where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T6))
+                where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T7))
+                where entityComponents[entity.Id.Index].Components.ContainsKey(typeof(T8))
+                select entity;
 
         public void Update()
         {
